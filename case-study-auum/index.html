@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abdelmonim DAKKON</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
-</head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body class="bg-sky-100">
-    <div class=" absolute top-10 left-10 flex bg-white rounded-lg drop-shadow-2xl">
-        <img class="p-4" src="https://www.castalie.com/wp-content/uploads/2021/01/castalie-bouteillesbarrees.svg">
-        <div class="flex flex-col justify-between p-6 space-y-8">
-            <div class="p-2 md:p-4 bg-cover bg-center bg-no-repeat bg-contain" style="background-image: url(https://www.castalie.com/wp-content/uploads/2021/01/castalie-traces-pinceaux.png);">
-                <div class="text-center text-white text-4xl font-bold">
-                    <span id="counter" style="font-family: 'Caveat', cursive;"></span>
-                </div>
-            </div>
-            <div class="space-y-2">
-                <p style="color: #3c6d96;" class="text-center text-sm">bouteilles plastiques évitées depuis le début<br>de l’aventure. Et ça ne fait que commencer !</p>
-            </div>
+  <body class="bg-sky-100">
+    <div
+      class="absolute top-10 left-10 flex bg-white rounded-lg drop-shadow-2xl"
+    >
+      <img
+        class="p-4"
+        src="https://www.castalie.com/wp-content/uploads/2021/01/castalie-bouteillesbarrees.svg"
+      />
+      <div class="flex flex-col justify-between p-6 space-y-8">
+        <div
+          class="p-2 md:p-4 bg-cover bg-center bg-no-repeat bg-contain"
+          style="
+            background-image: url(https://www.castalie.com/wp-content/uploads/2021/01/castalie-traces-pinceaux.png);
+          "
+        >
+          <div class="text-center text-white text-4xl font-bold">
+            <span
+              id="counter"
+              style="font-size: xxx-large; font-family: 'Caveat', cursive"
+            ></span>
+          </div>
         </div>
+        <div class="space-y-2">
+          <p style="color: #3c6d96" class="text-center text-sm">
+            bouteilles plastiques évitées depuis le début<br />de l’aventure. Et
+            ça ne fait que commencer !
+          </p>
+        </div>
+      </div>
     </div>
-</body>
-<script>
-
-    function numberWithCommas(number) {
-        var parts = number.toString().split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-        return parts.join(".");
-    }
-
-    var seconds = 253000022;
-    var el = document.getElementById('counter');
+  </body>
+  <script>
+    const el = document.getElementById("counter");
+    let seconds = 253000022;
 
     function incrementSeconds() {
-        seconds += 1;
-        el.innerText = numberWithCommas(seconds);
+      seconds += 1;
+      el.innerText = seconds.toLocaleString().replace(/,/g, " ");
     }
 
-    var cancel = setInterval(incrementSeconds, 2000);
-
-</script>
-
+    setInterval(incrementSeconds, 2000);
+  </script>
 </html>
