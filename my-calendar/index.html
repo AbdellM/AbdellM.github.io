@@ -12,9 +12,10 @@
 <body class="antialiased sans-serif bg-gray-100">
     <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
         <div class="container mx-auto px-4 py-2 md:py-24">
-
+            <span class="flex justify-center text-lg">
+                06h30 - 14h30 - 22h30
+            </span>
             <div class="bg-white rounded-lg shadow overflow-hidden">
-
                 <div class="flex items-center justify-between py-2 px-6">
                     <div>
                         <span x-text="MONTH_NAMES[month]" class="text-lg font-bold text-gray-800"></span>
@@ -23,8 +24,7 @@
                     <div class="border rounded-lg px-1" style="padding-top: 2px;">
                         <button type="button"
                             class="leading-none rounded-lg transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center"
-                            :class="{'cursor-not-allowed opacity-25': month == 0 }"
-                            :disabled="month == 0 ? true : false" @click="month--; getNoOfDays()">
+                            @click="decrementMonth(); getNoOfDays()">
                             <svg class="h-6 w-6 text-gray-500 inline-flex leading-none" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -34,8 +34,7 @@
                         <div class="border-r inline-flex h-6"></div>
                         <button type="button"
                             class="leading-none rounded-lg transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1"
-                            :class="{'cursor-not-allowed opacity-25': month == 11 }"
-                            :disabled="month == 11 ? true : false" @click="month++; getNoOfDays()">
+                            @click="incrementMonth(); getNoOfDays()">
                             <svg class="h-6 w-6 text-gray-500 inline-flex leading-none" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -89,8 +88,6 @@
                 blankdays: [],
                 days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 
-
-
                 initDate() {
                     let today = new Date();
                     this.month = today.getMonth();
@@ -111,12 +108,12 @@
                     return idx;
                 },
 
-
                 getNoOfDays() {
                     let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
 
                     // find where to start calendar day of week
                     let dayOfWeek = new Date(this.year, this.month).getDay() - 1;
+                    dayOfWeek = dayOfWeek < 0 ? 6 : dayOfWeek;
                     let blankdaysArray = [];
                     for (var i = 1; i <= dayOfWeek; i++) {
                         blankdaysArray.push(i);
@@ -129,6 +126,26 @@
 
                     this.blankdays = blankdaysArray;
                     this.no_of_days = daysArray;
+                },
+
+                decrementMonth() {
+                    // Decrement the month
+                    if (this.month === 0) {
+                        this.month = 11;
+                        this.year--;
+                    } else {
+                        this.month = ((this.month - 1) % 12);
+                    }
+                },
+
+                incrementMonth() {
+                    // Increment the month
+                    this.month = ((this.month + 1) % 12);
+
+                    // Update the year if we reached December
+                    if (this.month === 0) {
+                        this.year++;
+                    }
                 }
             }
         }
